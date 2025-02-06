@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Signature Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #f0f5ff 0%, #ebf0ff 100%);
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 3rem;
+            flex-direction: column;
+        }
+
+        @media (min-width: 768px) {
+            .flex-container {
+                flex-direction: row;
+            }
+            .form-section, .preview-section {
+                width: 50%;
+            }
+        }
+
+        .title {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 2rem;
+            background: linear-gradient(to right, #2563eb, #4f46e5);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .form-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            position: absolute;
+            top: -0.5rem;
+            left: 0.5rem;
+            padding: 0 0.25rem;
+            background-color: white;
+            font-size: 0.75rem;
+            color: #4b5563;
+            z-index: 1;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .preview-container {
+            background: linear-gradient(135deg, #f8fafc 0%, #f0f5ff 100%);
+            padding: 2rem;
+            border-radius: 1rem;
+            border: 1px solid #e5e7eb;
+        }
+
+        .preview-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #1f2937;
+        }
+
+        .preview-box {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .copy-button {
+            width: 100%;
+            margin-top: 1.5rem;
+            padding: 0.75rem;
+            background: linear-gradient(to right, #2563eb, #4f46e5);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-button:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .signature-preview {
+            font-family: Arial, sans-serif;
+            color: #333333;
+        }
+
+        .signature-name {
+            font-size: 16px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .signature-role {
+            font-size: 14px;
+            color: #666666;
+            margin: 0;
+        }
+
+        .signature-logo {
+            max-height: 50px;
+            margin: 5px 0;
+        }
+
+        .signature-contact {
+            font-size: 14px;
+            margin: 0;
+        }
+
+        .signature-link {
+            color: #0066cc;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="flex-container">
+            <!-- Form Section -->
+            <div class="form-section">
+                <h1 class="title">GoList Email Signature Generator</h1>
+                <div class="form-group">
+                    <label class="form-label">Name</label>
+                    <input type="text" id="name" class="form-input" placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Role</label>
+                    <input type="text" id="role" class="form-input" placeholder="Senior Developer">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" id="phone" class="form-input" placeholder="0400 000 000">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" id="email" class="form-input" placeholder="john@golist.com.au">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Website</label>
+                    <input type="url" id="website" class="form-input" value="golist.com.au">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Logo URL</label>
+                    <input type="url" id="logoUrl" class="form-input" value="https://www.golist.com.au/images/golist-email-logo.png">
+                </div>
+            </div>
+
+            <!-- Preview Section -->
+            <div class="preview-section">
+                <div class="preview-container">
+                    <h2 class="preview-title">Preview</h2>
+                    <div class="preview-box">
+                        <div class="signature-preview" id="signaturePreview">
+                            <p class="signature-name">Your Name</p>
+                            <p class="signature-role">Your Role</p>
+                            <br>
+                            <div id="logoContainer"></div>
+                            <p class="signature-contact" id="contactInfo"></p>
+                        </div>
+                    </div>
+                    <button class="copy-button" id="copyButton">Copy Signature</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Get all input elements
+        const inputs = {
+            name: document.getElementById('name'),
+            role: document.getElementById('role'),
+            phone: document.getElementById('phone'),
+            email: document.getElementById('email'),
+            website: document.getElementById('website'),
+            logoUrl: document.getElementById('logoUrl')
+        };
+
+        // Get preview elements
+        const preview = {
+            name: document.querySelector('.signature-name'),
+            role: document.querySelector('.signature-role'),
+            logoContainer: document.getElementById('logoContainer'),
+            contactInfo: document.getElementById('contactInfo')
+        };
+
+        // Update preview function
+        function updatePreview() {
+            const formData = {
+                name: inputs.name.value,
+                role: inputs.role.value,
+                phone: inputs.phone.value,
+                email: inputs.email.value,
+                website: inputs.website.value,
+                logoUrl: inputs.logoUrl.value
+            };
+
+            // Update name and role
+            preview.name.textContent = formData.name || 'Your Name';
+            preview.role.textContent = formData.role || 'Your Role';
+
+            // Update logo
+            preview.logoContainer.innerHTML = formData.logoUrl ? 
+                `<img src="${formData.logoUrl}" alt="Company Logo" class="signature-logo" onerror="this.style.display='none'"><br>` : '';
+
+            // Update contact info
+            let contactHTML = '';
+            if (formData.phone) contactHTML += `📞 ${formData.phone}<br>`;
+            if (formData.email) contactHTML += `📧 <a href="mailto:${formData.email}" class="signature-link">${formData.email}</a><br>`;
+            if (formData.website) contactHTML += `🌐 <a href="${formData.website}" class="signature-link">${formData.website}</a>`;
+            preview.contactInfo.innerHTML = contactHTML;
+        }
+
+        // Add input event listeners
+        Object.values(inputs).forEach(input => {
+            input.addEventListener('input', updatePreview);
+        });
+
+        // Copy signature function
+        document.getElementById('copyButton').addEventListener('click', () => {
+            const formData = {
+                name: inputs.name.value,
+                role: inputs.role.value,
+                phone: inputs.phone.value,
+                email: inputs.email.value,
+                website: inputs.website.value,
+                logoUrl: inputs.logoUrl.value
+            };
+
+            const signatureHTML = `
+                <div style="font-family: Arial, sans-serif; color: #333333;">
+                    <p style="margin: 0; font-size: 16px; font-weight: bold;">${formData.name}</p>
+                    <p style="margin: 0; font-size: 14px; color: #666666;">${formData.role}</p>
+                    <br/>
+                    ${formData.logoUrl ? `<img src="${formData.logoUrl}" alt="Company Logo" style="max-height: 50px; margin: 5px 0;"/><br/>` : ''}
+                    <p style="margin: 0; font-size: 14px;">
+                        ${formData.phone ? `📞 ${formData.phone}<br/>` : ''}
+                        ${formData.email ? `📧 <a href="mailto:${formData.email}" style="color: #0066cc; text-decoration: none;">${formData.email}</a><br/>` : ''}
+                        ${formData.website ? `🌐 <a href="${formData.website}" style="color: #0066cc; text-decoration: none;">${formData.website}</a>` : ''}
+                    </p>
+                </div>
+            `;
+
+            // Create temporary element to copy from
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = signatureHTML;
+            document.body.appendChild(tempDiv);
+
+            // Copy the content
+            const range = document.createRange();
+            range.selectNode(tempDiv);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            document.execCommand('copy');
+            window.getSelection().removeAllRanges();
+            document.body.removeChild(tempDiv);
+
+            alert('Signature copied to clipboard!');
+        });
+    </script>
+</body>
+</html>
