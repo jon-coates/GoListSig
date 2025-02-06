@@ -249,7 +249,7 @@
 
             // Update logo
             preview.logoContainer.innerHTML = formData.logoUrl ? 
-                `<a href="${websiteURL}"><img src="${formData.logoUrl}" alt="Company Logo" class="signature-logo" onerror="this.style.display='none'"></a><br>` : '';
+                `<a href="${websiteURL}"><img src="${formData.logoUrl}" alt="Logo" class="signature-logo" onerror="this.style.display='none'"></a><br>` : '';
 
             // Update contact info
             let contactHTML = '';
@@ -280,7 +280,7 @@
                     <p style="margin: 0; font-size: 16px; font-weight: bold;">${formData.name}</p>
                     <p style="margin: 0; font-size: 14px; color: #666666;">${formData.role}</p>
                     <br/>
-                    ${formData.logoUrl ? `<a href="${websiteURL}"><img src="${formData.logoUrl}" alt="Company Logo" style="max-height: 50px; margin: 5px 0;"/></a><br/>` : ''}
+                    ${formData.logoUrl ? `<a href="${websiteURL}"><img src="${formData.logoUrl}" alt="Logo" style="max-height: 50px; margin: 5px 0;"/></a><br/>` : ''}
                     <p style="margin: 0; font-size: 14px;">
                         ${formData.phone ? `📞 ${formData.phone}<br/>` : ''}
                         ${formData.email ? `📧 <a href="mailto:${formData.email}" style="color: #0066cc; text-decoration: none;">${formData.email}</a><br/>` : ''}
