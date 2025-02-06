@@ -243,7 +243,7 @@
 
             // Update logo
             preview.logoContainer.innerHTML = formData.logoUrl ? 
-                `<img src="${formData.logoUrl}" alt="Company Logo" class="signature-logo" onerror="this.style.display='none'"><br>` : '';
+                `<a href="${formData.website}"><img src="${formData.logoUrl}" alt="Company Logo" class="signature-logo" onerror="this.style.display='none'"></a><br>` : '';
 
             // Update contact info
             let contactHTML = '';
