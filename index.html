@@ -237,19 +237,25 @@
                 logoUrl: inputs.logoUrl.value
             };
 
+            // Ensure the website URL starts with http:// or https://
+            let websiteURL = formData.website;
+            if (websiteURL && !websiteURL.startsWith('http://') && !websiteURL.startsWith('https://')) {
+            websiteURL = 'https://' + websiteURL;
+            }
+
             // Update name and role
             preview.name.textContent = formData.name || 'Your Name';
             preview.role.textContent = formData.role || 'Your Role';
 
             // Update logo
             preview.logoContainer.innerHTML = formData.logoUrl ? 
-                `<a href="${formData.website}"><img src="${formData.logoUrl}" alt="Company Logo" class="signature-logo" onerror="this.style.display='none'"></a><br>` : '';
+                `<a href="${websiteURL}"><img src="${formData.logoUrl}" alt="Company Logo" class="signature-logo" onerror="this.style.display='none'"></a><br>` : '';
 
             // Update contact info
             let contactHTML = '';
             if (formData.phone) contactHTML += `📞 ${formData.phone}<br>`;
             if (formData.email) contactHTML += `📧 <a href="mailto:${formData.email}" class="signature-link">${formData.email}</a><br>`;
-            if (formData.website) contactHTML += `🌐 <a href="${formData.website}" class="signature-link">${formData.website}</a>`;
+            if (formData.website) contactHTML += `🌐 <a href="${websiteURL}" class="signature-link">${formData.website}</a>`;
             preview.contactInfo.innerHTML = contactHTML;
         }
 
@@ -274,11 +280,11 @@
                     <p style="margin: 0; font-size: 16px; font-weight: bold;">${formData.name}</p>
                     <p style="margin: 0; font-size: 14px; color: #666666;">${formData.role}</p>
                     <br/>
-                    ${formData.logoUrl ? `<a href="${formData.website}"><img src="${formData.logoUrl}" alt="Company Logo" style="max-height: 50px; margin: 5px 0;"/></a><br/>` : ''}
+                    ${formData.logoUrl ? `<a href="${websiteURL}"><img src="${formData.logoUrl}" alt="Company Logo" style="max-height: 50px; margin: 5px 0;"/></a><br/>` : ''}
                     <p style="margin: 0; font-size: 14px;">
                         ${formData.phone ? `📞 ${formData.phone}<br/>` : ''}
                         ${formData.email ? `📧 <a href="mailto:${formData.email}" style="color: #0066cc; text-decoration: none;">${formData.email}</a><br/>` : ''}
-                        ${formData.website ? `🌐 <a href="${formData.website}" style="color: #0066cc; text-decoration: none;">${formData.website}</a>` : ''}
+                        ${formData.website ? `🌐 <a href="${websiteURL}" style="color: #0066cc; text-decoration: none;">${formData.website}</a>` : ''}
                     </p>
                 </div>
             `;
