@@ -275,6 +275,12 @@
                 logoUrl: inputs.logoUrl.value
             };
 
+            // Ensure the website URL starts with http:// or https://
+            let websiteURL = formData.website;
+            if (websiteURL && !websiteURL.startsWith('http://') && !websiteURL.startsWith('https://')) {
+                websiteURL = 'https://' + websiteURL;
+            }
+
             const signatureHTML = `
                 <div style="font-family: Arial, sans-serif; color: #333333;">
                     <p style="margin: 0; font-size: 16px; font-weight: bold;">${formData.name}</p>
